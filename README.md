@@ -1,6 +1,9 @@
 # fearless_tweeter
 Illustrating language models by building one to tweet in the style of our president.
 
+"Great job #TrumpAdmitalisis on this national Ambassument, indeed with unemployed."
+    -our fearless tweeter
+
 
 The purpose is mainly illustrative. I had fun building it, and I hope it to be straightforward enough to be a good starting point for understanding how these models work. The code builds a simple language model for generating tweets, with minimal preprocessing steps and no leveraging GPUs. 
 
