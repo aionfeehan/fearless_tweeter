@@ -14,14 +14,16 @@ class AutoRegressiveModel:
     Packs training a model on tweets into a usable class
     """
 
-    def __init__(self, csv_filepath, type='char'):
+    def __init__(self, csv_filepath, type='char', embedding_size=256, rnn_size=256):
         """
         Initialize the model and perform preprocessing.
 
         We expect the data to be loaded from a csv that contains a 'text' column
 
-        :param filepath: str, filepath to retrieve the csv of tweets to be used
-        :param type: str, expects 'char' or 'word'. Whether to use word-level or character-level vocabulary.
+        :param filepath: str, filepath to retrieve the csv of tweets to be used.
+        :param type: str, expects 'char' or 'word'. Whether to generate one word at a time or one character at a time.
+        :param embedding_size: int, size of the embedded representation of our vocabulary.
+        :param rnn_size: int, size of the rnn state representation.
 
         """
 
@@ -30,6 +32,8 @@ class AutoRegressiveModel:
         text = df['text']
 
         self.type = type
+        self.embedding_size = embedding_size
+        self.rnn_size = rnn_size
 
         if type == 'char':
             text = text.apply(preprocess_to_characters)
@@ -60,6 +64,11 @@ class AutoRegressiveModel:
         :return:
         """
 
+        assert saved_model_path or training
+
+        if saved_model_path:
+            training = False
+
         if training:
             stateful = False
             batch_size = None
@@ -68,8 +77,8 @@ class AutoRegressiveModel:
             batch_size = 1
 
 
-        self.model = build_rnn_model(vocab_size=self.vocab_size, embedding_size=256,
-                                     rnn_size=256, stateful=stateful, batch_size=batch_size)
+        self.model = build_rnn_model(vocab_size=self.vocab_size, embedding_size=self.embedding_size,
+                                     rnn_size=self.rnn_size, stateful=stateful, batch_size=batch_size)
 
         if not training:
             self.model.load_weights(saved_model_path)
@@ -107,7 +116,7 @@ class AutoRegressiveModel:
 
 
 
-    def sample_sentence(self, seed):
+    def sample_sentence(self, seed=''):
         """ Sample a sentence. Takes a seed string as input and runs through predictions by the model """
 
         self.model.reset_states()

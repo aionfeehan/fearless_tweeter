@@ -23,5 +23,7 @@ Construct the model by calling the .build_model() method. The model is initizliz
 
 Train the model by calling .train_model(). This should be given a path to store the weights for the model when training is over. You can also optionally set the batch size and number of epochs for the training procedure, and for the tensorflow model an optional directory for tensorboard can be passed.
 
+Once a model is trained, it can be loaded into a new instance of AutoRegressiveModel from its save path. Sample sentences using the .sample_sentence() method, with an optional seed argument to start the tweet. If none is given the model will just decide for itself!
+
 
 
