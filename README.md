@@ -1,7 +1,7 @@
 # fearless_tweeter
 Illustrating language models by building one to tweet in the style of our president.
 
-"Great job #TrumpAdmitalisis on this national Ambassument, indeed with unemployed."
+"# trumpvlog is running to be stolen to America for the jobs and viewers"
     -our fearless tweeter
 
 
@@ -18,13 +18,13 @@ The training data used is all tweets from @realdonaldtrump over about 9 years, a
 
 ## Getting Started
 
-Everything is built in python, and the only package requirements are tensorflow for the tensorflow model and pytorch for the pytorch model. 
+Everything is built in python, and the only package requirement is tensorflow for the tensorflow model.
 
-Each file has an AutoRegressiveModel class, that implements a simple version of the language generating problem. It should be initialized with a path to the csv file storing the training text, and optional model architecture hyperparamters. 
+The file has an AutoRegressiveModel class, that implements a simple version of the language generating problem. It should be initialized with a path to the csv file storing the training text, and optional model architecture hyperparamters. 
 
 Construct the model by calling the .build_model() method. The model is initizlized slightly differently depending on whether we're training or testing, and if a saved_model_path is passed it will assume we are building for generating new examples.
 
-Train the model by calling .train_model(). This should be given a path to store the weights for the model when training is over. You can also optionally set the batch size and number of epochs for the training procedure, and for the tensorflow model an optional directory for tensorboard can be passed.
+Train the model by calling .train_model(). This should be given a path to store the weights for the model when training is over. You can also optionally set the batch size and number of epochs for the training procedure, and an optional directory for tensorboard can be passed.
 
 Once a model is trained, it can be loaded into a new instance of AutoRegressiveModel from its save path. Sample sentences using the .sample_sentence() method, with an optional seed argument to start the tweet. If none is given the model will just decide for itself!
 
